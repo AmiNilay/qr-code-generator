@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- ========== LEFT INPUT COLUMN ========== -->
+        <div class="input-section">
+            <button class="help-button" id="open-help-modal">?</button>
+            <h1>QR Code Generator</h1>
+
+            <div class="stats-bar">
+                <div class="stat-item"><span id="users-online-count" class="stat-number">126</span><span class="stat-label">Users Online</span></div>
+                <div class="stat-item"><span id="generated-today-count" class="stat-number">4,812</span><span class="stat-label">Generated Today</span></div>
+                <div class="stat-item"><span id="total-generated-count" class="stat-number">1,245,917</span><span class="stat-label">Total Generated</span></div>
+            </div>
+
+            <div class="options-tabs">
+                <button class="tab-button active" data-option="url">URL</button>
+                <button class="tab-button" data-option="text">Text</button>
+                <button class="tab-button" data-option="email">Email</button>
+                <button class="tab-button" data-option="wifi">Wi-Fi</button>
+                <button class="tab-button" data-option="phone">Phone</button>
+                <button class="tab-button" data-option="sms">SMS</button>
+                <button class="tab-button" data-option="contact">vCard</button>
+                <button class="tab-button" data-option="pdf">PDF</button>
+                <button class="tab-button" data-option="app">App</button>
+                <button class="tab-button" data-option="multiurl">Multi-URL</button>
+            </div>
+
+            <div class="input-forms">
+                <div class="input-panel active" id="panel-url"><div class="form-group"><input type="url" class="form-input" id="url-input" placeholder="https://example.com"></div></div>
+                <div class="input-panel" id="panel-text"><div class="form-group"><textarea class="form-input" id="text-input" placeholder="Enter any text here..." rows="4"></textarea></div></div>
+                <div class="input-panel" id="panel-email"><div class="form-group"><label for="email-to">Recipient Email</label><input type="email" class="form-input" id="email-to" placeholder="recipient@example.com"></div><div class="form-group"><label for="email-subject">Subject</label><input type="text" class="form-input" id="email-subject" placeholder="Email Subject"></div><div class="form-group"><label for="email-body">Message</label><textarea class="form-input" id="email-body" rows="2" placeholder="Your message..."></textarea></div></div>
+                <div class="input-panel" id="panel-wifi"><div class="form-group"><label for="wifi-ssid">Network Name (SSID)</label><input type="text" class="form-input" id="wifi-ssid" placeholder="My Home Network"></div><div class="form-group"><label for="wifi-password">Password</label><input type="password" class="form-input" id="wifi-password" placeholder="••••••••••••"></div><div class="form-group"><label for="wifi-encryption">Encryption</label><select class="form-input" id="wifi-encryption"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">None</option></select></div></div>
+                <div class="input-panel" id="panel-phone"><div class="form-group"><label for="phone-number">Phone Number</label><input type="tel" class="form-input" id="phone-number" placeholder="+15551234567"></div></div>
+                <div class="input-panel" id="panel-sms"><div class="form-group"><label for="sms-to">Recipient Phone</label><input type="tel" class="form-input" id="sms-to" placeholder="+15551234567"></div><div class="form-group"><label for="sms-body">Message</label><textarea class="form-input" id="sms-body" rows="3" placeholder="Your SMS message..."></textarea></div></div>
+                <div class="input-panel" id="panel-contact"><div class="form-group"><label for="contact-name">Full Name</label><input type="text" class="form-input" id="contact-name" placeholder="John Doe"></div><div class="form-group"><label for="contact-phone">Phone</label><input type="tel" class="form-input" id="contact-phone" placeholder="+15551234567"></div><div class="form-group"><label for="contact-email">Email</label><input type="email" class="form-input" id="contact-email" placeholder="john.doe@example.com"></div><div class="form-group"><label for="contact-org">Organization</label><input type="text" class="form-input" id="contact-org" placeholder="Example Inc."></div><div class="form-group"><label for="contact-title">Job Title</label><input type="text" class="form-input" id="contact-title" placeholder="Engineer"></div><div class="form-group"><label for="contact-website">Website</label><input type="url" class="form-input" id="contact-website" placeholder="https://example.com"></div></div>
+                <div class="input-panel" id="panel-pdf"><div class="form-group"><label for="pdf-url">PDF URL</label><input type="url" class="form-input" id="pdf-url" placeholder="https://example.com/document.pdf"></div><p class="disclaimer">QR codes can't store a PDF. Upload your PDF online (e.g., Google Drive) and paste the public link here.</p></div>
+                <div class="input-panel" id="panel-app"><div class="form-group"><label for="app-ios-url">Apple App Store URL</label><input type="url" class="form-input" id="app-ios-url" placeholder="https://apps.apple.com/..."></div><div class="form-group"><label for="app-android-url">Google Play Store URL</label><input type="url" class="form-input" id="app-android-url" placeholder="https://play.google.com/..."></div><p class="disclaimer">This creates a QR code pointing to a page that redirects users to the correct app store.</p></div>
+                <div class="input-panel" id="panel-multiurl"><div class="form-group"><label>URL 1</label><input type="url" class="form-input multiurl-input" placeholder="https://facebook.com/..."></div><div class="form-group"><label>URL 2</label><input type="url" class="form-input multiurl-input" placeholder="https://instagram.com/..."></div><div class="form-group"><label>URL 3</label><input type="url" class="form-input multiurl-input" placeholder="https://linkedin.com/..."></div><p class="disclaimer">This creates a QR that opens a simple webpage showing your links. True Multi-URL QR codes require a paid service.</p></div>
+            </div>
+            
+            <button id="generate-button">Generate QR Code</button>
+        </div>
+        
+        <div class="output-section">
+            <div class="qr-code-wrapper">
+                <div id="qr-code-output" class="placeholder">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 17.5L18.5 21.5" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3H12.01" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.24 7.76L16.25 7.77" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.07 10.93L19.08 10.94" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12H3.01" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.76 16.24L7.77 16.25" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.93 19.07L10.94 19.08" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 3H3V7H7V3Z" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 17H3V21H7V17Z" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 3H21V7H17V3Z" stroke="#D1D5DB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Your QR Code will appear here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="help-modal">
+        <div class="modal-content">
+            <button class="modal-close-button" id="close-help-modal">×</button>
+            <div class="modal-tabs"><button class="modal-tab-button active" data-modal-tab="start">Get Started</button><button class="modal-tab-button" data-modal-tab="faq">FAQ</button><button class="modal-tab-button" data-modal-tab="privacy">Privacy</button><button class="modal-tab-button" data-modal-tab="terms">Terms</button><button class="modal-tab-button" data-modal-tab="legal">Legal</button></div>
+            <div class="modal-panels">
+                <div class="modal-panel active" id="modal-panel-start"><h3>Create your custom QR Code</h3><div class="how-to-step"><h4>1. Set QR Content</h4><p>Select a content type from the tabs (URL, Text, Email, etc.). After selecting a type, enter all the required information in the fields below. Make sure your data is correct, as it cannot be changed after the QR code is generated.</p></div><div class="how-to-step"><h4>2. Review the Design</h4><p>This tool focuses on a clean, consistent modern design. While direct color or shape customization isn't available, the professional look ensures your QR code is highly scannable on any background.</p></div><div class="how-to-step"><h4>3. Generate QR Code</h4><p>Click the "Generate QR Code" button. Your code will instantly appear in the preview area. It's essential to test your QR code by scanning the preview image with your phone's camera or a QR scanner app to ensure it works as expected.</p></div><div class="how-to-step"><h4>4. Download Image</h4><p>Right-click (or long-press on mobile) on the generated QR code image and select "Save Image As..." to download it as a .PNG file. This high-quality format is perfect for web use, presentations, documents, and printing.</p></div></div>
+                <div class="modal-panel" id="modal-panel-faq"><div class="faq-section"><h3>Frequently Asked Questions</h3><div class="faq-item"><div class="faq-question"><span>How are the 'live' stats calculated?</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>Great question! Since this website runs entirely in your browser and doesn't use a central server (for privacy), these stats are a fun simulation. The 'Users Online' count fluctuates realistically, while 'Generated Today' and 'Total Generated' start at a base number and increase by one every time <strong>you</strong> create a QR code. This gives the site a dynamic feel while respecting your privacy completely.</p></div></div><div class="faq-item"><div class="faq-question"><span>How does 'Multi-URL' work?</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>A QR code stores only one link. This tool creates a mobile-friendly webpage with all your links, and the QR code points to that page. It's a free and effective way to share multiple links.</p></div></div><div class="faq-item"><div class="faq-question"><span>Can I use a PDF file?</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>QR codes can't store files. You must upload your PDF online (e.g., Google Drive), get the public link, and paste it in the 'PDF' tab.</p></div></div><div class="faq-item"><div class="faq-question"><span>What is a vCard?</span><span class="faq-icon">+</span></div><div class="faq-answer"><p>It's a digital business card. Scanning it prompts the user to save your details directly to their phone's contacts.</p></div></div></div><div class="contact-section"><h3>Contact Developer</h3><p>This tool was developed by Nilay Naha.</p><div class="contact-links"><a href="https://www.linkedin.com/in/nilay-naha/" target="_blank">LinkedIn</a><a href="https://aminilay.github.io/nilay-naha-portfolio/" target="_blank">GitHub Portfolio</a></div></div></div>
+                <div class="modal-panel" id="modal-panel-privacy"><h3>Privacy Policy</h3><p><strong>Last Updated: <span class="current-year"></span></strong></p><h4>1. Data Collection</h4><p>This QR Code Generator operates entirely client-side. No data you enter is ever sent to or stored on our servers.</p><h4>2. Local Storage</h4><p>We do not use browser cookies or local storage to track your activity or save your information.</p></div>
+                <div class="modal-panel" id="modal-panel-terms"><h3>Terms of Service</h3><p><strong>Last Updated: <span class="current-year"></span></strong></p><h4>1. Use of Service</h4><p>This service is provided "as is" and is free to use for any lawful purpose. You agree not to create QR codes that link to illegal, malicious, or harmful content.</p><h4>2. Disclaimer of Warranties</h4><p>The service is provided without warranty. You use the generated codes at your own risk.</p></div>
+                <div class="modal-panel" id="modal-panel-legal"><h3>Legal Notice</h3><h4>Responsible for this content:</h4><p>Nilay Naha<br></a></p></div>
+            </div>
+        </div>
+    </div>
+    
+    <button id="back-to-top-btn" title="Go to top">↑</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
